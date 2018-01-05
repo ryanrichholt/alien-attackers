@@ -15,17 +15,17 @@ class Leaderboard extends Component {
     score: "",
   };
 
-  componentDidMount() {
-    this.loadUsers();
-  }
+  // componentDidMount() {
+  //   this.loadUsers();
+  // }
 
-  loadUsers = () => {
-    API.getUsers()
-      .then(res =>
-        this.setState({ users: res.data, name: "", email: "", score: "" })
-      )
-      .catch(err => console.log(err));
-  };
+  // loadUsers = () => {
+  //   API.getUsers()
+  //     .then(res =>
+  //       this.setState({ users: res.data, name: "", email: "", score: "" })
+  //     )
+  //     .catch(err => console.log(err));
+  // };
 
   render() {
     return (
