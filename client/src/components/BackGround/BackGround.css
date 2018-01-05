@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+/*  Background fallback in case of IE8 & down, or in case video doens't load, such as with slower connections  */
+  background: #333;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#background-video {
+/*  making the video fullscreen  */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: auto;
+  z-index: -99;
+  background: #000;
+  width: 110vw;
+  margin: 0px;
+  padding: 0px;
+}

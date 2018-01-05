@@ -1,0 +1,70 @@
+@font-face {
+  font-family: Spacey;
+  src:url("../../fonts/ca.ttf");
+}
+
+h1 {
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  font-size: 56px;
+  letter-spacing: 3px;
+  color: #fff;
+  font-family: Spacey;
+  text-align: center;
+}
+
+h1 span {
+  font-family: sans-serif;
+  letter-spacing: 0;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+h1 span a {
+  color: #fff;
+}
+
+.col-md-12 {
+  padding: 0px 0px 0px 0px;
+}
+
+.panel-default{
+  position: absolute;
+  top: 35%;
+  left: 25%;
+  width: 50%;
+  align-content: center;
+  background-color: #8c8c8c;
+  color: white;
+  font-family: Spacey;
+}
+
+.panel-default>.panel-heading {
+  color: black;
+  text-align: center;
+  font-size: 42px;
+}
+
+.panel-default>.panel-body>.high-score{
+  height:120px;
+  border-bottom: 2px solid #3d3c3c;
+  border-radius: 60px;
+  font-size: 36px;
+  text-align: center;
+}
+
+.panel-default>.panel-body>.user-email{
+  height:120px;
+  border-bottom: 2px solid #3d3c3c;
+  border-radius: 60px;
+  font-size: 36px;
+  text-align: center;
+}
+
+
+
+.profHeader{
+  text-decoration: underline;
+}
