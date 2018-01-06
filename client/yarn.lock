@@ -4740,12 +4740,6 @@ pinkie-promise@^2.0.0:
   dependencies:
     pinkie "^2.0.0"
 
-pinkie-promise@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/pinkie-promise/-/pinkie-promise-2.0.2.tgz#ef5f25b811f04f177fb37755472dfdf34cebb7d4"
-  dependencies:
-    pinkie "^2.0.0"
-
 pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
