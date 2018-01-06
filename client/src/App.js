@@ -5,9 +5,6 @@ import Leaderboard from './pages/Leaderboard/leaderboard';
 import Profile from './pages/Profile/profile';
 import Game from './pages/Game/game';
 import Nav from "./components/Nav";
-import P5Wrapper from 'react-p5-wrapper';
-import p5 from 'p5';
-
 
 const App = () =>
   <Router>

@@ -29,3 +29,5 @@ function Shot(x, y) {
   }
 
 }
+
+export default Shot

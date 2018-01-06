@@ -1,31 +1,31 @@
 
-function scoreBoard(){
+function scoreBoard(p){
     this.level = 1;
     this.score = 0;
 
-    this.container = createDiv('');
+    this.container = p.createDiv('');
     this.id = 'scoreBoard';
     this.container.position(25, 25);
     this.container.parent('sketch-holder');
 
   
-    this.levelDisplay = createDiv("Level: ");
+    this.levelDisplay = p.createDiv("Level: ");
     this.levelDisplay.id = 'levelDisplay';
     this.levelDisplay.parent(this.container);
 
-    this.levelElem = createSpan("1");
+    this.levelElem = p.createSpan("1");
     this.levelElem.id = 'levelElem';
     this.levelElem.parent(this.levelDisplay);
 
-	this.scoreDisplay = createDiv("Score: ");
+	this.scoreDisplay = p.createDiv("Score: ");
 	this.scoreDisplay.id = 'scoreDisplay';
     this.scoreDisplay.parent(this.container);
 
-	this.scoreElem = createSpan("0");
+	this.scoreElem = p.createSpan("0");
 	this.scoreElem.id = 'scoreElem';
 	this.scoreElem.parent(this.scoreDisplay);
 
-    this.message = createDiv("");
+    this.message = p.createDiv("");
     this.id = 'scoreBoardMessage';
     this.message.parent(this.container);
 
@@ -46,3 +46,5 @@ function scoreBoard(){
         this.levelElem.html(this.level);
     }
 }
+
+export default scoreBoard

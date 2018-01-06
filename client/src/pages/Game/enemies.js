@@ -32,14 +32,4 @@ function Enemy(x, y) {
     }
 };
 
-
-function EnemyGroup(rows) {
-    this.rows = rows;
-
-    this.totalWidth = 600;
-
-    for (var i=0; i < n; i++) {
-        enemies[i] = new Enemy(i *80 +80, 60);
-    }
-
-}
+export default Enemy
