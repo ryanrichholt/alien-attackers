@@ -2,6 +2,31 @@ import React, { Component } from "react";
 import {Input, FormBtn} from "../Form";
 import axios from "axios";
 
+const formStyle = {
+	position: 'absolute',
+	marginLeft: 'auto',
+	marginRight: 'auto',
+	width: '50%',
+	textAlign: 'center',
+	left: '0',
+	right: '0',
+	paddingTop: '10px'
+}
+
+const btnStyle = {
+    color: 'black',
+    backgroundColor: '#ffff00',
+    borderColor: 'white',
+    fontFamily: 'spacey',
+    width: '50%',
+    padding: '10px',
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    left: '0',
+    right: '0',
+    bottom: '30%'
+}
 class LoginForm extends Component {
 	state = {
 		email: null,
@@ -24,10 +49,10 @@ class LoginForm extends Component {
     render() { return (
 		<div className="form-inline">
             <div>{this.props.message}</div>
-	        <form>
+	        <form style={formStyle}>
 			  <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="text" id="login-email" placeholder="Email" onChange={this.handleEmailChange}></Input>
 			  <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="password" id="login-password" placeholder="Password" onChange={this.handlePasswordChange}></Input>
-	          <FormBtn type="submit" id="login-submit" onClick={this.handleLoginSubmit}>Log In</FormBtn>
+	          <FormBtn style={btnStyle} type="submit" id="login-submit" onClick={this.handleLoginSubmit}>Log In</FormBtn>
 	        </form>
 		</div>
 	)}

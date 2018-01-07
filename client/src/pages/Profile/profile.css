@@ -55,14 +55,53 @@ h1 span a {
   text-align: center;
 }
 
-.panel-default>.panel-body>.user-email{
+.user-email{
+  font-family: Spacey;
   height:120px;
-  border-bottom: 2px solid #3d3c3c;
+  border-bottom: 2px solid #fffb1c;
+  color:#fffb1c; 
+  padding-top: 55px; 
   border-radius: 60px;
   font-size: 36px;
   text-align: center;
+  margin-top: 50px;
 }
 
+
+.currentLog{
+  color: #fffb1c;
+  font-family: spacey;
+  width: 50%;
+  padding: 10px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  left: 0;
+  right: 0;
+  bottom: 40%;
+
+}
+
+.form-inline {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
+
+form{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
 
 
 .profHeader{

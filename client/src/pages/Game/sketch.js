@@ -181,7 +181,8 @@ export default function sketch (p) {
 //         for (var i= enemies.length-1; i >= 0; i--) {
 //             if (enemies[i].toDelete){
 //                 gameSounds.blast.play();
-//                 scoreBoard.increaseScore(1);
+//
+                 // scoreBoard.increaseScore(1);
 //                 enemies.splice(i,1);
 //             }
 //         }

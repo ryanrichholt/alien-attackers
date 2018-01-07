@@ -40,18 +40,29 @@ class Profile extends Component {
 
       if (user) {
         return (
-          <Container>
-            <div>Profile for { user.email }</div>
-            <div>Ship name: {user.shipName}</div>
+          <Container fluid>
+            <div className="video-background">
+              <div className="video-foreground">
+                <iframe src="https://www.youtube.com/embed/y2RVEK8XkFk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=y2RVEK8XkFk" frameBorder="0" allowFullScreen></iframe>
+              </div>
+            </div>
+            
+            <div className="user-email">Profile for { user.email }</div>
+            <div className="user-email">Ship name: {user.shipName}</div>
             <ProfileBox/>
           </Container>
         )
       } else {
         return (
-          <Container>
-            <div>You must be logged in to view/edit profile</div>
+          <Container fluid>
+            <div className="video-background">
+              <div className="video-foreground">
+                <iframe src="https://www.youtube.com/embed/y2RVEK8XkFk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=y2RVEK8XkFk" frameBorder="0" allowFullScreen></iframe>
+              </div>
+            </div>
+            <div className="user-email">You must be logged in to view/edit profile</div>
             <ProfileBox/>
-            <div> Register: </div>
+            <div className="user-email"> Register: </div>
             <RegisterForm/>
           </Container>
         )
