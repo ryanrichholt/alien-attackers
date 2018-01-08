@@ -57,14 +57,14 @@ h1 span a {
 
 .user-email{
   font-family: Spacey;
-  height:120px;
+  height:160px;
   border-bottom: 2px solid #fffb1c;
   color:#fffb1c; 
-  padding-top: 55px; 
+  padding-top: 75px; 
   border-radius: 60px;
   font-size: 36px;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 

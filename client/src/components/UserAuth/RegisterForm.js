@@ -10,7 +10,7 @@ const formStyle = {
     textAlign: 'center',
     left: '0',
     right: '0',
-    paddingTop: '10px'
+    paddingTop: '30px'
 }
 
 const btnStyle = {
@@ -25,7 +25,7 @@ const btnStyle = {
     marginRight: 'auto',
     left: '0',
     right: '0',
-    bottom: '30%'
+    top: '110px'
 }
 
 class RegisterForm extends Component {

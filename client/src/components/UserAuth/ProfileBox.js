@@ -16,7 +16,7 @@ const btnStyle = {
     marginRight: 'auto',
     left: '0',
     right: '0',
-    bottom: '30%'
+    bottom: '10%'
 }
 
 class ProfileBox extends Component {

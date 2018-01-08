@@ -1,5 +1,8 @@
-import Ship from "./ship"
-import shipSprite from '../../images/ship.png'
+import Ship from "./ship";
+import shipSprite from '../../images/ship.png';
+import Enemies from "./enemies";
+import enemySprite from '../../images/mdInvader2.png';
+
 
 
 export default function sketch (p) {

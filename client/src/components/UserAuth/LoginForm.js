@@ -25,7 +25,7 @@ const btnStyle = {
     marginRight: 'auto',
     left: '0',
     right: '0',
-    bottom: '30%'
+    top: '60px'
 }
 class LoginForm extends Component {
 	state = {

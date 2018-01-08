@@ -1,4 +1,4 @@
-import enemySprite '../../images/mdInvader2.png';
+import enemySprite from '../../images/mdInvader2.png';
 
 function Enemy(p, x, y) {
     this.x = x;
