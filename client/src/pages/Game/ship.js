@@ -1,4 +1,4 @@
-import shipSprite from '../../images/ship.png'
+import shipSprite from '../../images/ship.png';
 
 function Ship(p, x, y){
 	var self = this

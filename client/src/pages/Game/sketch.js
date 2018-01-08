@@ -1,6 +1,7 @@
 import Ship from "./ship"
 import shipSprite from '../../images/ship.png'
 
+
 export default function sketch (p) {
     const width = 800
     const height = 600

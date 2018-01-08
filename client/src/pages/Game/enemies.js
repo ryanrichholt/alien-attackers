@@ -1,8 +1,10 @@
-function Enemy(x, y) {
+import enemySprite '../../images/mdInvader2.png';
+
+function Enemy(p, x, y) {
     this.x = x;
     this.y = y;
     this.r = 40;
-    this.graphic = loadImage("../images/mdInvader2.png");
+    this.graphic = p.loadImage(enemySprite);
 
     this.xdir = 1;
     this.ydir = 0;
@@ -26,7 +28,7 @@ function Enemy(x, y) {
     }
 
     this.show = function(){
-        image(this.graphic, this.x, this.y, this.r, this.r);
+        p.image(this.graphic, this.x, this.y, this.r, this.r);
         //fill(255, 0, 200);
         //ellipse(this.x, this.y, this.r*2, this.r*2);
     }
