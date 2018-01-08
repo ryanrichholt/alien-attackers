@@ -9,7 +9,6 @@ function Ship(p, x, y){
 	this.weapon = null;
 	this.recharge = 500;
 	this.ready = true;
-	
 	this.dir = 0;
 	this.vel = 0;
 	this.maxVel = 10;
