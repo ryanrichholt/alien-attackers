@@ -3,14 +3,23 @@ import Enemies from "./enemies";
 
 import shipSprite from '../../images/ship.png';
 import enemySprite from '../../images/mdInvader2.png';
+import startButton from '../../images/startbutton.jpg';
 
 export default function sketch (p) {
-    let gameState = 0
-    const states = []
-    const width = 800
-    const height = 600
+    let gameState = 0;
+    const states = [];
+    const width = 800;
+    const height = 600;
 
     let game = null;
+
+
+    const sprites = {
+      // Preload all the assets
+      ship: p.loadImage(shipSprite),
+      enemy: p.loadImage(enemySprite),
+      startImg: p.loadImage(startButton)
+    }
 
     p.setup = function(){
       p.createCanvas(width, height);
@@ -19,9 +28,9 @@ export default function sketch (p) {
     
     // gameState = 0 "menu"
     states.push(function(){
-      p.background(100);
-      p.rect(width/2, height/2, 100, 100)
-      p.text('Click anywhere to start!', width/2, height/2)
+      p.background(0);
+      p.image(sprites.startImg, 0, 0);
+      // p.text('Click anywhere to start!', width/2, height/2)
       p.mousePressed = event => {
         // setup the game
         p.mousePressed = null
@@ -40,7 +49,6 @@ export default function sketch (p) {
     })
 
     //TODO Third state that allows you to post score to profile
-    
     const newGame = function(){
       return {
         enemies: [],
@@ -49,12 +57,6 @@ export default function sketch (p) {
       }
     }
   
-    const sprites = {
-      // Preload all the assets
-      ship: p.loadImage(shipSprite),
-      enemy: p.loadImage(enemySprite)
-    }
-
     const ship = {
         graphic: sprites.ship,
         x: width/2,
