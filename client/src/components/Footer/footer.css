@@ -1,0 +1,14 @@
+footer a{
+    font-size: 1.5em;
+    color: rgba(255, 251, 0, 0.842);
+    font-weight: lighter;
+    padding : 20px;
+  }
+  .footer a:visited, a:link {
+    color: white
+  }
+  
+  .footer{
+    margin-top: 100px;
+    padding: 15px;
+  }
