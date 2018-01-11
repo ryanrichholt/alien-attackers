@@ -4,6 +4,12 @@ import Enemies from "./enemies";
 import shipSprite from '../../images/ship.png';
 import enemySprite from '../../images/mdInvader2.png';
 import startButton from '../../images/startbutton.jpg';
+import p5 from 'p5';
+import 'p5/lib/addons/p5.sound';
+import laser from '../../sounds/laser_gun.wav';
+import blast from '../../sounds/bomb.mp3';
+import bksound from '../../sounds/trimbackground.wav';
+
 
 export default function sketch (p) {
     let gameState = 0;
@@ -13,6 +19,16 @@ export default function sketch (p) {
 
     let game = null;
 
+    let gameSounds;
+
+    p.preload = function() {
+        p.soundFormats('mp3', 'wav', 'ogg');
+        gameSounds = {
+            laserSound: p.loadSound(laser),
+            blast: p.loadSound(blast),
+            song: p.loadSound(bksound),
+        }
+    }
 
     const sprites = {
       // Preload all the assets
@@ -33,6 +49,7 @@ export default function sketch (p) {
       // p.text('Click anywhere to start!', width/2, height/2)
       p.mousePressed = event => {
         // setup the game
+        gameSounds.song.loop();
         p.mousePressed = null
         game = newGame()
         game.enemies.push(new enemy(1, 1))
@@ -106,7 +123,8 @@ export default function sketch (p) {
           this.speed = this.speed * -1
           if(this.y >= ship.y){
             //TODO: YOU LOSE
-            gameState = 0
+            gameState = 0;
+            gameSounds.song.stop();
           }
         },
 
@@ -138,6 +156,7 @@ export default function sketch (p) {
           if(this.hits(e)){
             this.deleteMe = true;
             e.hit(this.damage)
+            gameSounds.blast.play();
           }
         }
 
@@ -161,7 +180,8 @@ export default function sketch (p) {
       } else if(event.code === "ArrowLeft"){
         ship.x_speed -= 10
       } else if(event.code === "Space"){
-        ship.shoot()
+        ship.shoot();
+        gameSounds.laserSound.play();
       }
     }
 

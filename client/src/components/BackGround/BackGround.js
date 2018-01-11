@@ -3,11 +3,11 @@ import Video from '../../images/earth_from_space.mp4';
 import './BackGround.css';
 
 const BackGround = props => (
-  <video id="background-video" loop autoPlay>
-    <source src= {Video} type="video/mp4" />
-    <source src= {Video} type="video/ogg" />
-    Your browser does not support the video tag.
-  </video>
+            <div className="video-background">
+              <div className="video-foreground">
+                <iframe src="https://www.youtube.com/embed/y2RVEK8XkFk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=y2RVEK8XkFk" frameBorder="0" allowFullScreen></iframe>
+              </div>
+            </div>
 );
 
 export default BackGround;

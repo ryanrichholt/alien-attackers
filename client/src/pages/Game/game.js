@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import P5Wrapper from 'react-p5-wrapper';
 import sketch from './sketch';
-import BackgroundSound from './backgroundSound';
 
 class Game extends Component{
 	constructor(props) {
@@ -16,7 +15,6 @@ class Game extends Component{
 	render () {
 		return (
 			<div>
-				<BackgroundSound />
 				<center><P5Wrapper sketch={this.state.stateSketch} /></center>
 			</div>
 		);
