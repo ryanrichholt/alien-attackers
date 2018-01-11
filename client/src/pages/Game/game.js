@@ -15,7 +15,7 @@ class Game extends Component{
 	render () {
 		return (
 			<div>
-				<P5Wrapper sketch={this.state.stateSketch} />
+				<center><P5Wrapper sketch={this.state.stateSketch} /></center>
 			</div>
 		);
 	}

@@ -1,224 +1,224 @@
 import Ship from "./ship";
-import shipSprite from '../../images/ship.png';
 import Enemies from "./enemies";
-import enemySprite from '../../images/mdInvader2.png';
 
+import shipSprite from '../../images/ship.png';
+import enemySprite from '../../images/mdInvader2.png';
+import startButton from '../../images/startbutton.jpg';
+import p5 from 'p5';
+import 'p5/lib/addons/p5.sound';
+import laser from '../../sounds/laser_gun.wav';
+import blast from '../../sounds/bomb.mp3';
+import bksound from '../../sounds/trimbackground.wav';
 
 
 export default function sketch (p) {
-    const width = 800
-    const height = 600
+    let gameState = 0;
+    const states = [];
+    const width = 800;
+    const height = 600;
 
+    let game = null;
+
+    let gameSounds;
+
+    p.preload = function() {
+        p.soundFormats('mp3', 'wav', 'ogg');
+        gameSounds = {
+            laserSound: p.loadSound(laser),
+            blast: p.loadSound(blast),
+            song: p.loadSound(bksound),
+        }
+    }
+
+    const sprites = {
+      // Preload all the assets
+      ship: p.loadImage(shipSprite),
+      enemy: p.loadImage(enemySprite),
+      startImg: p.loadImage(startButton)
+    }
+
+    p.setup = function(){
+      p.createCanvas(width, height);
+      p.frameRate(60);
+    };
+    
+    // gameState = 0 "menu"
+    states.push(function(){
+      p.background(0);
+      p.image(sprites.startImg, 0, 0);
+      // p.text('Click anywhere to start!', width/2, height/2)
+      p.mousePressed = event => {
+        // setup the game
+        gameSounds.song.loop();
+        p.mousePressed = null
+        game = newGame()
+        game.enemies.push(new enemy(1, 1))
+        gameState = 1
+      }
+    })
+
+    // gameState = 1 "play game"
+    states.push(function(){
+      p.background(100);
+      ship.draw();
+      updateQueue(game.shots);
+      updateQueue(game.enemies);
+    })
+
+    //TODO Third state that allows you to post score to profile
+    const newGame = function(){
+      return {
+        enemies: [],
+        shots: [],
+        level: 0,
+      }
+    }
+  
     const ship = {
-        graphic: p.loadImage(shipSprite),
+        graphic: sprites.ship,
         x: width/2,
+        x_speed: 0,
         y: height - 50,
+        y_speed: 0,
+        
+        shoot: function(){
+          let s = new shot(ship.x + 25, ship.y + 15)
+          game.shots.push(s)
+        },
+
         draw: function(){
+            this.x = this.x + this.x_speed
             p.image(this.graphic, this.x, this.y, 50, 50)
         }
     }
 
-    p.setup = function () {
-      p.createCanvas(width, height);
-      p.frameRate(60);
-    };
+    const enemy = function(x, y) { return {
+        graphic: sprites.enemy,
+        x: x,
+        y: y,
+        r: 50,
+        left: this.x,
+        right: this.x,
+        speed: 20,
+        health: 100,
+        deleteMe: false,
+
+        left: function(){
+          return this.x
+        },
+
+        right: function(){
+          return this.x + this.r
+        },
+
+        hit: function(damage){
+          this.health = this.health - damage
+          if(this.health <= 0){
+            this.deleteMe = true
+          }
+        },
+
+        shiftDown: function(){
+          this.y = this.y + this.r
+          this.speed = this.speed * -1
+          if(this.y >= ship.y){
+            //TODO: YOU LOSE
+            gameSounds.song.stop();
+            gameState = 0;
+
+          }
+        },
+
+        draw: function(){
+            if(this.left() <= 0 || this.right() >= width){
+              this.shiftDown()
+            } 
+            this.x = this.x + this.speed
+            p.image(this.graphic, this.x, this.y, this.r, this.r)
+        }
+    }}
+
+    const shot = function(x, y) { return {
+      x: x,
+      y: y,
+      r: 5,
+      damage: 10,
+      deleteMe: false,
+      
+      draw: function(){
+        this.y = this.y - 10;
+        
+        if(this.y < 0){
+          this.deleteMe = true;
+        }
+
+        for(let i=0; i < game.enemies.length; i++){
+          let e = game.enemies[i]
+          if(this.hits(e)){
+            this.deleteMe = true;
+            e.hit(this.damage)
+            gameSounds.blast.play();
+          }
+        }
+
+        p.ellipse(this.x, this.y, this.r, this.r)
+      },
+      
+      hits: function(enemy) {
+        var d = p.dist(this.x, this.y, enemy.x, enemy.y);
+        if (d < this.r + enemy.r) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+
+    }}
 
     p.keyPressed = event => {
-        if(event.key === "ArrowRight"){
-            ship.x += 5
-        } else if(event.key === "ArrowLeft"){
-            ship.x -= 5
+      if(event.code === "ArrowRight"){
+        ship.x_speed += 10
+      } else if(event.code === "ArrowLeft"){
+        ship.x_speed -= 10
+      } else if(event.code === "Space"){
+        ship.shoot();
+        gameSounds.laserSound.play();
+      }
+    }
+
+    p.keyReleased = event => {
+      if(event.code === "ArrowRight"){
+          ship.x_speed -= 10
+      } else if(event.code === "ArrowLeft"){
+          ship.x_speed += 10
+      }
+    }
+
+    const startLevel = function(){
+      for(var i = 1; i < game.level * 3; i++){
+        let e = new enemy(i * 100, 100);
+        game.enemies.push(e)
+      }
+    }
+
+    const updateQueue = function(queue) {
+      const sentinel = {}
+      queue.push(sentinel)
+
+      let obj = queue.shift()
+      while(!Object.is(obj, sentinel)){
+        if(obj.deleteMe){
+          // let it get garbage collected?
+        } else {
+          obj.draw();
+          queue.push(obj);
         }
+        obj = queue.shift();
+      }
     }
 
     p.draw = function () {
-      p.background(100);
-      ship.draw()
+        states[gameState]()
     };
   };
 
-// import scoreBoard from "./scoreboard"
-// import Shot from "./shots"
-// 
-// import Enemy from "./enemies"
-
-// function sketch (p) {
-//     console.log('p5 given to sketch', p)
-
-//     var scoreBoard;
-//     var gameSounds;
-
-//     var gameOn = true;
-//     var enemySpeed = 0;
-//     var ship;
-//     var enemies = [];
-//     var shots = [];
-
-
-//     preload = function() {
-//         soundFormats('mp3', 'wav', 'ogg');
-
-//         gameSounds = {
-//             laserSound: loadSound('../sounds/laser_gun.wav'),
-//             blast: loadSound('../sounds/bomb.mp3'),
-//             song: loadSound('../sounds/trimbackground.wav'),
-//         }
-        
-//         gameImages = {
-//             background: loadImage('../images/invader.jpg'),
-//         }
-        
-//     }
-
-
-//     setup = function(){
-//         var canvas = p.createCanvas(800, 600);
-//         canvas.parent('sketch-holder');
-//         p.frameRate(60);
-
-//         scoreBoard = new scoreBoard();
-//         ship = new Ship();
-//         resetEnemies();
-
-//         gameSounds.song.loop();
-//         gameSounds.song.setVolume(0.5);
-//         makeRestartButton();
-//     }
-
-
-//     makeRestartButton = function(){
-//         var button = p.createButton("restart");
-//         button.position(810, 570);
-//         button.parent('sketch-holder');
-//         button.mousePressed(restartSketch); 
-//     }
-
-
-//     restartSketch = function(){
-//         enemies = [];
-//         shots = [];
-//         ship = new Ship();
-//         scoreBoard.reset();
-//         resetEnemies();
-//         gameOn = true;
-//     }
-
-
-//     resetEnemies = function(){
-//         var max_enemy_cols = 9;
-//         var max_enemies = 75;
-//         var enemySpeed = Math.max(scoreBoard.level * .25, 1);
-//         var numberOfEnemies = Math.min(scoreBoard.level + 6, max_enemies);
-
-//         enemies = [];
-//         for (var i=0; i < numberOfEnemies; i++) {
-//             var col = i % max_enemy_cols;
-//             var row = Math.floor(i/max_enemy_cols)
-//             enemy = new Enemy(col *80 +80, row *60 +60);
-//             enemy.xdir = enemySpeed
-//             enemies.push(enemy)
-//         }
-//     }
-
-
-//     draw = function() {
-//         if (gameOn){
-//             p.background(gameImages.background);
-//             checkGameStatus();
-//             checkShip();
-//             moveShots();
-//             checkShots();
-//             moveEnemies();
-//             checkEnemies();
-//         }
-//     }
-
-
-//     // Updates shots positions
-//     moveShots = function(){    
-//         for (var i=0; i < shots.length; i++){
-//             shots[i].move();
-//             shots[i].show();
-//             for (var j=0; j < enemies.length; j++) {
-//                 if (shots[i].hits(enemies[j])) {
-//                     enemies[j].evap();
-//                     shots[i].evaporate();
-//                 }
-//             }
-//         }
-//     }
-
-//     // Removes shots that have collided or passed off screen
-//     checkShots = function(){   
-//         for (var i = shots.length-1; i >= 0; i--) {
-//             if (shots[i].toDelete){
-//                 shots.splice(i,1);
-//             }
-//         }
-//     }
-
-//     // Updates enemies positions
-//     moveEnemies = function(){
-//         var edge = false;
-        
-//         for (var i = 0; i < enemies.length; i++){
-//             enemies[i].show();
-//             enemies[i].move();
-//             if (enemies[i].x > 760 || enemies[i].x <0){
-//                 edge = true;
-//             }
-//             if (enemies[i].y > 550){
-//                 gameOver();
-//             }
-//         }
-
-//         if (edge) {
-//             for (var i=0; i< enemies.length; i++){
-//                 enemies[i].shiftDown();
-//             }
-//         }
-//     }
-
-
-//     // Removes dead enemies
-//     checkEnemies =  function(){
-//         for (var i= enemies.length-1; i >= 0; i--) {
-//             if (enemies[i].toDelete){
-//                 gameSounds.blast.play();
-//
-                 // scoreBoard.increaseScore(1);
-//                 enemies.splice(i,1);
-//             }
-//         }
-//     }
-
-//     //check to see if any enemies are left
-//     checkGameStatus = function() {
-//         if (enemies.length == 0) {
-//             scoreBoard.increaseLevel(1);
-//             ship.reduceRecharge(25);
-//             resetEnemies();
-//         }
-//     }
-
-
-
-//     gameOver = function(){
-//         gameOn = false;
-//         window.location.href = "/gameOver/"+String(scoreBoard.score);   
-//     }
-
-//     keyPressed = function () {
-//         if (key === " " && gameOn) {
-//             if (ship.ready){
-//                 ship.shoot();
-//                 var shot = new Shot(ship.x, height);
-//                 gameSounds.laserSound.play();
-//                 shots.push(shot);
-//             }
-//         }
-//     }
-// }
-
-
-// export default sketch
