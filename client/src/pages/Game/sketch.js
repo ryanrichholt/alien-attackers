@@ -123,8 +123,9 @@ export default function sketch (p) {
           this.speed = this.speed * -1
           if(this.y >= ship.y){
             //TODO: YOU LOSE
-            gameState = 0;
             gameSounds.song.stop();
+            gameState = 0;
+
           }
         },
 
