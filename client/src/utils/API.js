@@ -6,6 +6,10 @@ export default {
     return axios.get("api/profile")
   },
 
+  getLeaders: () => {
+    return axios.get("api/leaderboard")
+  },
+
   register: (formData) => {
     console.log('Sending registration')
     return axios.post("auth/register", formData)

@@ -78,7 +78,8 @@ export default function sketch (p) {
       p.background(100);
       p.text("Score: " + score, 10, 15);
       p.text("Level: " + level, 10, 30);
-      gameState = 2;
+      p.text("Click anywhere to start over", 10, 45)
+
     })
 
 
@@ -140,6 +141,13 @@ export default function sketch (p) {
           this.speed = this.speed * -1
           if(this.y >= ship.y){
             //TODO: YOU LOSE
+            axios.post("api/profile/score", { score: score })
+            .then(() => {
+              console.log('sent score...')
+              p.mousePressed = event => {
+                gameState = 0
+              }
+            })
             gameSounds.song.stop();
             gameState = 2;
 
