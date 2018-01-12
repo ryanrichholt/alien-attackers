@@ -56,6 +56,8 @@ class ProfileBox extends Component {
         })
         .then( response => {
             this.setState({ user: null, message: 'Logged out' })
+            window.location.reload();
+
         })
         .catch( error => {
             console.log(error)
@@ -73,6 +75,8 @@ class ProfileBox extends Component {
             console.log(response)
             if(response.data.success){
                 this.getProfile()
+                window.location.reload();
+
             } else {
                 this.setState({ message: response.data.message })
             }
