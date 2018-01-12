@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Spacey;
+  src:url("../../fonts/ca.ttf");
+}
 
 article {
 /*  just a fancy border  */

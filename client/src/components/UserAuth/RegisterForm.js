@@ -25,7 +25,7 @@ const btnStyle = {
     marginRight: 'auto',
     left: '0',
     right: '0',
-    top: '110px'
+    top: '150px'
 }
 
 class RegisterForm extends Component {

@@ -18,6 +18,8 @@ export default function sketch (p) {
     const height = 600;
 
     let game = null;
+    let score = 0;
+    let level = 1;
 
     let gameSounds;
 
@@ -46,7 +48,6 @@ export default function sketch (p) {
     states.push(function(){
       p.background(0);
       p.image(sprites.startImg, 0, 0);
-      // p.text('Click anywhere to start!', width/2, height/2)
       p.mousePressed = event => {
         // setup the game
         gameSounds.song.loop();
@@ -61,16 +62,28 @@ export default function sketch (p) {
     states.push(function(){
       p.background(100);
       ship.draw();
+      p.text("Score: " + score, 10, 15);
+      p.text("Level: " + level, 10, 30);
       updateQueue(game.shots);
       updateQueue(game.enemies);
+
     })
 
-    //TODO Third state that allows you to post score to profile
+    // gameState = 2 "End Game"
+    states.push(function(){
+      p.background(100);
+      p.text("Score: " + score, 10, 15);
+      p.text("Level: " + level, 10, 30);
+      gameState = 2;
+    })
+
+
     const newGame = function(){
       return {
         enemies: [],
         shots: [],
-        level: 0,
+        level: 1,
+        score: 0
       }
     }
   
@@ -124,7 +137,7 @@ export default function sketch (p) {
           if(this.y >= ship.y){
             //TODO: YOU LOSE
             gameSounds.song.stop();
-            gameState = 0;
+            gameState = 2;
 
           }
         },
@@ -158,6 +171,7 @@ export default function sketch (p) {
             this.deleteMe = true;
             e.hit(this.damage)
             gameSounds.blast.play();
+            score++;
           }
         }
 

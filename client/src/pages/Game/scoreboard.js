@@ -1,3 +1,5 @@
+import p5 from 'p5';
+
 
 function scoreBoard(p){
     this.level = 1;
@@ -6,7 +8,6 @@ function scoreBoard(p){
     this.container = p.createDiv('');
     this.id = 'scoreBoard';
     this.container.position(25, 25);
-    this.container.parent('sketch-holder');
 
   
     this.levelDisplay = p.createDiv("Level: ");
