@@ -46,7 +46,7 @@ const Home = ({ children }) =>
   <div id='home'>
 
     <div id='container'>
-      {/* Logo */}
+      
       <div id='jumbo' className="row text-center justify-content-center p-4 mx-auto">
                 <h1>Welcome to Alien Attackers!</h1>
       </div>
