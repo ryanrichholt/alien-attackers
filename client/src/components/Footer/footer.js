@@ -4,18 +4,8 @@ import "./footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer w-100 bg-dark text-white align-content-around">
-          <ul className="nav justify-content-center">
-            <li className="nav-item">
-              <a className="nav-link" href="/leaderboard">Leaderboard</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/game">New Game</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/API">API</a>
-            </li>
-          </ul>    
+    <div className="footer">
+          Copyright &copy; 2018 <i className='ion-social-github' />
     </div>
   )
 }

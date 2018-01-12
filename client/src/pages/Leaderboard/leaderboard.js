@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import BackGround from "../../components/BackGround";
 import API from "../../utils/API";
+import Footer from "../../components/Footer";
 import './leaderboard.css';
 class Leaderboard extends Component {
   state = {
@@ -54,6 +55,7 @@ class Leaderboard extends Component {
                 </tbody>
             </table>
         </center>
+        <Footer />
       </Container>
     );
   }
