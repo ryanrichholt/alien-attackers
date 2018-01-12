@@ -9,6 +9,10 @@ export default {
   register: (formData) => {
     console.log('Sending registration')
     return axios.post("auth/register", formData)
+  },
+
+  postScore: (score) => {
+    return axios.post("api/profile/score", score)
   }
 
 };

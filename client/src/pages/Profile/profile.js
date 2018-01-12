@@ -13,7 +13,8 @@ import './profile.css';
 
 class Profile extends Component {
     state = {
-      user: null
+      user: null,
+      score: 24
     };
 
     componentDidMount() {
@@ -34,6 +35,22 @@ class Profile extends Component {
           })
     }
 
+    postScore = () => {
+      API.postScore({
+        score: this.state.score
+      })
+      .then( response => {
+        if (response.data.success){
+            console.log("score posted")
+        } else {
+            console.log("uh oh..")
+        }
+      })
+      .catch( error => {
+          console.log('Error posting score', error)
+      })
+    }
+
 // This page should show the profile and allow for edits
     render() { 
       const user = this.state.user
@@ -50,6 +67,7 @@ class Profile extends Component {
             <div className="user-email">Profile for { user.email }</div>
             <div className="user-email">Ship name: {user.shipName}</div>
             <ProfileBox/>
+            <FormBtn onClick={this.postScore}>post score</FormBtn>
           </Container>
         )
       } else {
