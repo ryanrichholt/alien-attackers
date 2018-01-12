@@ -3,6 +3,8 @@ import LoginForm from "./LoginForm";
 import {FormBtn} from "../Form";
 import axios from "axios";
 import API from "../../utils/API"
+import Profile from '../../pages/Profile/profile';
+
 
 const btnStyle = {
     color: 'black',
@@ -86,7 +88,7 @@ class ProfileBox extends Component {
 
         if (this.state.user) {
             message = <div className="currentLog">Logged in as: {this.state.user.email}</div>
-            form = <FormBtn style={btnStyle} onClick={this.logOut}>Log Out</FormBtn>
+            form = <FormBtn style={btnStyle} onClick={this.logOut} >Log Out</FormBtn>
         } else {
             message = <div>{this.state.message}</div>
             form = <LoginForm logIn={this.logIn}/>

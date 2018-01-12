@@ -43,6 +43,7 @@ class LoginForm extends Component {
 
     handleLoginSubmit = (event) => {
         event.preventDefault();
+        window.location.reload();
         this.props.logIn(this.state.email, this.state.password)
     }
 

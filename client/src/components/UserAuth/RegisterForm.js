@@ -56,7 +56,7 @@ class RegisterForm extends Component {
 
     handleRegisterSubmit = (event) => {
         event.preventDefault();
-
+        window.location.reload();
         if(this.state.password !== this.state.passwordAgain){
             this.setState({ errors: 'Passwords must match' })
             return
