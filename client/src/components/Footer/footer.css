@@ -4,11 +4,18 @@ footer a{
     font-weight: lighter;
     padding : 20px;
   }
+
   .footer a:visited, a:link {
     color: white
   }
   
-  .footer{
-    margin-top: 100px;
-    padding: 15px;
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
   }
+
+  main {
+    flex: 1 0 auto;
+  }
+      

@@ -31,11 +31,25 @@
   font-family: Avenir, Helvetica, sans-serif;
 }
 
-.vid-info h1 { 
+h1 { 
   font-size: 2rem;
   font-weight: 700;
   margin-top: 0;
   line-height: 1.2;
+  position: relative;
+  animation: heading;
+  animation-duration: 3s;
+  animation-fill-mode: both;
+  animation-timing-function: ease;
+}
+
+@keyframes heading {
+  0% {
+    animation-timing-function: ease;
+  }
+  100% {
+      top: 200px;
+  }
 }
 
 @media (min-aspect-ratio: 16/9) {

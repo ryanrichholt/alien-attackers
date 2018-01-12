@@ -12,8 +12,16 @@ h1 {
   color: #fff;
   font-family: Spacey;
   text-align: center;
+  animation: heading;
 }
-
+@keyframes heading {
+  0% {
+    animation-timing-function: ease;
+  }
+  100% {
+      top: 200px;
+  }
+}
 h1 span {
   font-family: sans-serif;
   letter-spacing: 0;
