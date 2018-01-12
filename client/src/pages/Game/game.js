@@ -8,10 +8,10 @@ class Game extends Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			stateSketch: sketch,
+			stateSketch: sketch
 		};
 	}
-
+  
 	render () {
 		return (
 			<div>

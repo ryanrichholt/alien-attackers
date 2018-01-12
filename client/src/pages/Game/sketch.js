@@ -10,6 +10,7 @@ import laser from '../../sounds/laser_gun.wav';
 import blast from '../../sounds/bomb.mp3';
 import bksound from '../../sounds/trimbackground.wav';
 
+import axios from "axios";
 
 export default function sketch (p) {
     let gameState = 0;
@@ -20,6 +21,7 @@ export default function sketch (p) {
     let game = null;
 
     let gameSounds;
+    let userProfile;
 
     p.preload = function() {
         p.soundFormats('mp3', 'wav', 'ogg');
@@ -28,6 +30,8 @@ export default function sketch (p) {
             blast: p.loadSound(blast),
             song: p.loadSound(bksound),
         }
+
+        axios.get("api/profile").then(response => { userProfile = response.data.user });
     }
 
     const sprites = {
