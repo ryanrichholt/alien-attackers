@@ -64,7 +64,7 @@ class Profile extends Component {
             </div>
             <div className="user-email">You must be logged in to view/edit profile</div>
             <ProfileBox/>
-            <div className="user-email"> Register: </div>
+            <div className="user-register"> Register: </div>
             <RegisterForm/>
           </Container>
         )
