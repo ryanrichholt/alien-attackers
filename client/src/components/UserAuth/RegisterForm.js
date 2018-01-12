@@ -25,7 +25,7 @@ const btnStyle = {
     marginRight: 'auto',
     left: '0',
     right: '0',
-    top: '110px'
+    top: '150px'
 }
 
 class RegisterForm extends Component {
@@ -72,6 +72,7 @@ class RegisterForm extends Component {
         .then( response => {
             if (response.data.success){
                this.setState({ success: true })
+               window.location.reload();
             } else {
                this.setState({ errors: 'Error from registration server: ' + response.data.message })
             }

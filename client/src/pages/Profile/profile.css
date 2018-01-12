@@ -67,6 +67,18 @@ h1 span a {
   margin-top: 30px;
 }
 
+.user-register{
+  font-family: Spacey;
+  height:160px;
+  border-bottom: 2px solid #fffb1c;
+  color:#fffb1c; 
+  padding-top: 75px; 
+  border-radius: 60px;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 100px;
+}
+
 
 .currentLog{
   color: #fffb1c;
@@ -93,11 +105,11 @@ h1 span a {
   right: 0;
 }
 
-form{
+form {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 100%;
   text-align: center;
   left: 0;
   right: 0;

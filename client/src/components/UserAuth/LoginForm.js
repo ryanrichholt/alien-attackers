@@ -18,14 +18,14 @@ const btnStyle = {
     backgroundColor: '#ffff00',
     borderColor: 'white',
     fontFamily: 'spacey',
-    width: '50%',
+    width: '40%',
     padding: '10px',
     position: 'absolute',
     marginLeft: 'auto',
     marginRight: 'auto',
     left: '0',
     right: '0',
-    top: '60px'
+    top: '100px'
 }
 class LoginForm extends Component {
 	state = {
