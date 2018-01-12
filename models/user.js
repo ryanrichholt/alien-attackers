@@ -13,12 +13,20 @@ const userSchema = new Schema({
         required: true,
     },
     pilotName: {
-        type: String
+        type: String,
+        required: true,
     },
 	shipName: {
 		type: String,
         default: "Millenium Falcon"
-	}
+	},
+    highScore: {
+        type: Number,
+        default: 0
+    },
+    scores: {
+        type: [Number,]
+    }
 });
 
 // Password hash middleware.

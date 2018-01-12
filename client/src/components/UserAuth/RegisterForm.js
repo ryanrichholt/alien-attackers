@@ -31,6 +31,7 @@ const btnStyle = {
 class RegisterForm extends Component {
     state = {
         email: null,
+        pilotName: null,
         password: null,
         passwordAgain: null,
         errors: null,
@@ -39,6 +40,10 @@ class RegisterForm extends Component {
 
     handleEmailChange = event => {
         this.setState({email: event.target.value});
+    }
+
+    handlePilotNameChange = event => {
+        this.setState({pilotName: event.target.value});
     }
 
     handlePasswordChange = event => {
@@ -59,6 +64,7 @@ class RegisterForm extends Component {
 
         let formData = {
             email: this.state.email,
+            pilotName: this.state.pilotName,
             password: this.state.password
         }
 
@@ -87,6 +93,7 @@ class RegisterForm extends Component {
                 <div>{error}</div>
                 <form style={formStyle}>
                   <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="text" id="register-email" placeholder="Email" onChange={this.handleEmailChange}></Input>
+                  <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="text" id="register-pilot-name" placeholder="Pilot Name" onChange={this.handlePilotNameChange}></Input>
                   <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="password" id="register-password" placeholder="Password" onChange={this.handlePasswordChange}></Input>
                   <Input className="form-control mb-2 mr-sm-2 mb-sm-0" type="password" id="register-password-again" placeholder="Password (again)" onChange={this.handlePasswordAgainChange}></Input>
                   <FormBtn style={btnStyle} type="submit" id="register-submit" onClick={this.handleRegisterSubmit}>Register</FormBtn>
