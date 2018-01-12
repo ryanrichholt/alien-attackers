@@ -66,6 +66,7 @@ class RegisterForm extends Component {
         .then( response => {
             if (response.data.success){
                this.setState({ success: true })
+               window.location.reload();
             } else {
                this.setState({ errors: 'Error from registration server: ' + response.data.message })
             }
