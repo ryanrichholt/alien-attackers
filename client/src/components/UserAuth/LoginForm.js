@@ -6,7 +6,7 @@ const formStyle = {
 	position: 'absolute',
 	marginLeft: 'auto',
 	marginRight: 'auto',
-	width: '50%',
+	width: '100%',
 	textAlign: 'center',
 	left: '0',
 	right: '0',
