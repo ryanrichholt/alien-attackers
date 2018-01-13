@@ -74,9 +74,8 @@ class ProfileBox extends Component {
         .then( response => {
             console.log(response)
             if(response.data.success){
-                this.getProfile()
+                // this.getProfile()
                 window.location.reload();
-
             } else {
                 this.setState({ message: response.data.message })
             }
