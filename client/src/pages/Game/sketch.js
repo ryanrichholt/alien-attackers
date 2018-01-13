@@ -19,8 +19,7 @@ export default function sketch (p) {
     const height = 600;
 
     let game = null;
-    let score = 0;
-    let level = 1;
+    let enemy_speed = 5
 
     let gameSounds;
     let userProfile;
@@ -57,7 +56,6 @@ export default function sketch (p) {
         gameSounds.song.loop();
         p.mousePressed = null
         game = newGame()
-        game.enemies.push(new enemy(1, 1))
         gameState = 1
       }
     })
@@ -66,18 +64,40 @@ export default function sketch (p) {
     states.push(function(){
       p.background(100);
       ship.draw();
-      p.text("Score: " + score, 10, 15);
-      p.text("Level: " + level, 10, 30);
+      p.text("Score: " + game.score, 10, 15);
+      p.text("Level: " + game.level, 10, 30);
       updateQueue(game.shots);
       updateQueue(game.enemies);
+      checkEdge(game.enemies);          
+
+      if(game.enemies.length === 0){
+        game.level += 1;
+        let total_enemies = 3 * game.level
+        let columns = (width/2)/55  // enemies can fill half the width of the game
+        let rows = (total_enemies % columns) + 1
+        console.log(game.level, total_enemies, columns, rows)
+        
+
+        let col = 1
+        let row = 1
+        while(game.enemies.length < total_enemies){
+          console.log('new enemy', col*55, row*55)
+          game.enemies.push(new enemy(col*55, row*55))
+          col = col + 1
+          if(col > columns){
+            col = 1
+            row = row + 1
+          }
+        }
+      }
 
     })
 
     // gameState = 2 "End Game"
     states.push(function(){
       p.background(100);
-      p.text("Score: " + score, 10, 15);
-      p.text("Level: " + level, 10, 30);
+      p.text("Score: " + game.score, 10, 15);
+      p.text("Level: " + game.level, 10, 30);
       p.text("Click anywhere to start over", 10, 45)
 
     })
@@ -87,7 +107,7 @@ export default function sketch (p) {
       return {
         enemies: [],
         shots: [],
-        level: 1,
+        level: 0,
         score: 0
       }
     }
@@ -110,14 +130,53 @@ export default function sketch (p) {
         }
     }
 
+    const shiftDown = enemy => {
+      let lose = false;
+      for(var i=0; i < game.enemies.length; i++){
+        let enemy = game.enemies[i]
+        enemy.y = enemy.y + enemy.r/2
+
+        if(enemy.y >= height - 45){
+          lose = true;
+          break
+        }
+      }
+      if(lose){
+        axios.post("api/profile/score", { score: game.score })
+        .then(() => {
+          console.log('sent score...')
+          p.mousePressed = event => {
+            gameState = 0
+          }
+        })
+        .catch(() => {
+          console.log('unable to post score...')
+          p.mousePressed = event => {
+            gameState = 0
+          }
+        })
+        gameSounds.song.stop();
+        gameState = 2;
+      }
+    }
+
+    const checkEdge = enemies => {
+      for(var i=0; i < enemies.length; i++){
+        let enemy = enemies[i]
+        if(enemy.left() <= 1 || enemy.right() >= width){
+          console.log('Shift down!')
+          enemy_speed = enemy_speed * -1
+          shiftDown()
+          break
+        } 
+      }
+    }
+
     const enemy = function(x, y) { return {
         graphic: sprites.enemy,
         x: x,
         y: y,
         r: 50,
-        left: this.x,
-        right: this.x,
-        speed: 20,
         health: 100,
         deleteMe: false,
 
@@ -136,29 +195,8 @@ export default function sketch (p) {
           }
         },
 
-        shiftDown: function(){
-          this.y = this.y + this.r
-          this.speed = this.speed * -1
-          if(this.y >= ship.y){
-            //TODO: YOU LOSE
-            axios.post("api/profile/score", { score: score })
-            .then(() => {
-              console.log('sent score...')
-              p.mousePressed = event => {
-                gameState = 0
-              }
-            })
-            gameSounds.song.stop();
-            gameState = 2;
-
-          }
-        },
-
         draw: function(){
-            if(this.left() <= 0 || this.right() >= width){
-              this.shiftDown()
-            } 
-            this.x = this.x + this.speed
+            this.x = this.x + enemy_speed  
             p.image(this.graphic, this.x, this.y, this.r, this.r)
         }
     }}
@@ -183,7 +221,7 @@ export default function sketch (p) {
             this.deleteMe = true;
             e.hit(this.damage)
             gameSounds.blast.play();
-            score++;
+            game.score++;
           }
         }
 
@@ -220,26 +258,14 @@ export default function sketch (p) {
       }
     }
 
-    const startLevel = function(){
-      for(var i = 1; i < game.level * 3; i++){
-        let e = new enemy(i * 100, 100);
-        game.enemies.push(e)
-      }
-    }
-
-    const updateQueue = function(queue) {
-      const sentinel = {}
-      queue.push(sentinel)
-
-      let obj = queue.shift()
-      while(!Object.is(obj, sentinel)){
+    const updateQueue = queue => {
+      for(var i=queue.length -1; i >= 0; i--){
+        let obj = queue[i]
         if(obj.deleteMe){
-          // let it get garbage collected?
+          queue.splice(i,1)
         } else {
-          obj.draw();
-          queue.push(obj);
+          obj.draw()
         }
-        obj = queue.shift();
       }
     }
 
